@@ -59,7 +59,11 @@ Ai-Visual-Design-Report/
 │   │   ├── home/          # 首页视图
 │   │   │   └── Index.jsx  # 首页主组件
 │   │   └── report/        # 报告视图
-│   │       └── Index.jsx  # 报告页主组件
+│   │   │   └── xxx1.jsx   # 报告页子组件1
+│   │   │   └── xxx2.jsx   # 报告页子组件2
+│   │   └── tool/          # 工具视图
+│   │   │   └── xxx1.jsx   # 工具页子组件1
+│   │   │   └── xxx2.jsx   # 工具页子组件2
 │   ├── index.css          # 全局样式和Tailwind指令
 │   └── main.jsx           # 应用入口文件
 ├── tailwind.config.js     # Tailwind CSS配置
