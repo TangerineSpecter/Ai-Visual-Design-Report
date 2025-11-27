@@ -17,11 +17,10 @@ const HomeView = ({ onNavigate }) => {
       {/* 中心核心动画区域 */}
       <div className="relative z-10 flex flex-col items-center">
         
-        {/* 核心能量球 */}
-        <div className="relative mb-8 group cursor-pointer" onClick={() => onNavigate('report')}>
+        {/* 核心能量球 (点击去报告) */}
+        <div className="relative mb-8 group cursor-pointer" onClick={() => onNavigate('report-basic')}>
           <div className="absolute inset-0 bg-n8n blur-[60px] opacity-20 animate-pulse"></div>
           
-          {/* 旋转轨道环 */}
           <div className="absolute inset-[-20px] border border-slate-700/50 rounded-full animate-[spin_10s_linear_infinite]"></div>
           <div className="absolute inset-[-40px] border border-slate-800/30 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
           
@@ -29,7 +28,6 @@ const HomeView = ({ onNavigate }) => {
             <Icons.Zap size={48} className="text-white group-hover:text-n8n transition-colors duration-300" />
           </div>
 
-          {/* 浮动标签 */}
           <div className="absolute -right-12 top-0 bg-slate-800 text-xs px-2 py-1 rounded border border-slate-600 animate-bounce delay-75">
             System Ready
           </div>
@@ -42,30 +40,45 @@ const HomeView = ({ onNavigate }) => {
           Visual Workstation
         </h1>
         <p className="text-slate-400 max-w-md text-center mb-8">
-          欢迎回到控制台。左侧导航已就绪，您可以随时查看 AI 自动化分析报告或配置系统参数。
+          欢迎回到控制台。请选择下方的功能模块开始工作。
         </p>
 
-        {/* 快速入口卡片 */}
-        <div className="grid grid-cols-2 gap-4 w-full max-w-lg">
-          <button onClick={() => onNavigate('report')} className="flex items-center gap-3 p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-n8n/50 hover:bg-slate-800 transition-all group text-left">
-            <div className="p-2 bg-n8n/10 rounded-lg group-hover:bg-n8n group-hover:text-white transition-colors text-n8n">
-              <Icons.FileText size={20} />
+        {/* 快速入口卡片 - 改为 grid-cols-3 以容纳新按钮 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-2xl">
+          
+          {/* 1. 查看报告 */}
+          <button onClick={() => onNavigate('report-basic')} className="flex flex-col items-center p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-n8n/50 hover:bg-slate-800 transition-all group text-center">
+            <div className="p-3 bg-n8n/10 rounded-lg group-hover:bg-n8n group-hover:text-white transition-colors text-n8n mb-3">
+              <Icons.FileText size={24} />
             </div>
             <div>
               <div className="text-sm font-bold text-slate-200">查看报告</div>
-              <div className="text-[10px] text-slate-500">Visual Design Report</div>
+              <div className="text-[10px] text-slate-500 mt-1">Design Report</div>
             </div>
           </button>
           
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-900/50 border border-slate-800 opacity-50 cursor-not-allowed">
-            <div className="p-2 bg-slate-800 rounded-lg text-slate-500">
-              <Icons.Settings size={20} />
+          {/* 2. 新增：AI 工具 (跳转到 cat-food-analysis) */}
+          <button onClick={() => onNavigate('cat-food-analysis')} className="flex flex-col items-center p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-blue-500/50 hover:bg-slate-800 transition-all group text-center">
+            <div className="p-3 bg-blue-500/10 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors text-blue-400 mb-3">
+              <Icons.Wrench size={24} /> {/* 假设 Icon 用 Search 代表分析 */}
+            </div>
+            <div>
+              <div className="text-sm font-bold text-slate-200">AI 工具</div>
+              <div className="text-[10px] text-slate-500 mt-1">Analysis Tools</div>
+            </div>
+          </button>
+          
+          {/* 3. 系统设置 (Disabled) */}
+          <div className="flex flex-col items-center p-4 rounded-xl bg-slate-900/50 border border-slate-800 opacity-50 cursor-not-allowed">
+            <div className="p-3 bg-slate-800 rounded-lg text-slate-500 mb-3">
+              <Icons.Settings size={24} />
             </div>
             <div>
               <div className="text-sm font-bold text-slate-500">系统设置</div>
-              <div className="text-[10px] text-slate-600">Coming Soon</div>
+              <div className="text-[10px] text-slate-600 mt-1">Coming Soon</div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

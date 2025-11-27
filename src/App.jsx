@@ -5,17 +5,22 @@ import HomeView from './views/home/Index';
 import ReportView from './views/report/Index';
 
 function App() {
-  // 默认视图状态，初始化为 'home'
   const [currentView, setCurrentView] = useState('home');
 
-  // 渲染当前视图的逻辑
   const renderContent = () => {
     switch (currentView) {
-      case 'report':
-        return <ReportView />;
       case 'home':
+        return <HomeView onNavigate={setCurrentView} />;
+        
+      // 处理所有子菜单 ID
+      case 'report-basic':
+      case 'report-rag':
+      case 'report-agent':
+      case 'report': // 保留这个以防万一
+        // 这里你可以把 currentView 传给 ReportView，让它决定显示什么
+        return <ReportView activeTab={currentView} />;
+        
       default:
-        // 传入 setCurrentView 允许 Home 页内部跳转到 Report
         return <HomeView onNavigate={setCurrentView} />;
     }
   };
