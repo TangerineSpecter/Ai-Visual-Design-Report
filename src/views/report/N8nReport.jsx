@@ -191,8 +191,8 @@ function ReportView() {
     const scrollToContent = () => contentRef.current?.scrollIntoView({ behavior: 'smooth' });
 
     return (
-        <div className="min-h-screen max-w-5xl mx-auto pb-20">
-            <Intro onStart={scrollToContent} />
+<div className="min-h-screen w-full pb-20 bg-slate-950 text-white">
+                <Intro onStart={scrollToContent} />
 
             <div ref={contentRef} className="px-4 md:px-8 space-y-24 pt-12">
                 <section className="relative">
