@@ -19,9 +19,7 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
       icon: Icons.FileText,
       // 定义子菜单
       children: [
-        { id: 'report-basic', label: '基础自动化' },
-        { id: 'report-rag', label: 'RAG 知识库' },
-        { id: 'report-agent', label: 'AI Agent 智能体' }
+        { id: 'n8n-report', label: 'n8n工作流' }
       ]
     },
     { 
@@ -37,7 +35,7 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
       id: 'settings', 
       label: '全局设置', 
       icon: Icons.Settings, 
-      disabled: true 
+      disabled: false 
     },
   ];
 
