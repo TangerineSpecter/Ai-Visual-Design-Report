@@ -53,6 +53,13 @@ Ai-Visual-Design-Report/
 │   │   └── react.svg      # React图标
 │   ├── components/        # 自定义组件
 │   │   └── Icons.jsx      # 图标组件库
+│   ├── layout/            # 布局组件
+│   │   └── MainLayout.jsx # 主布局组件
+│   ├── views/             # 子页面内容
+│   │   ├── home/          # 首页视图
+│   │   │   └── Index.jsx  # 首页主组件
+│   │   └── report/        # 报告视图
+│   │       └── Index.jsx  # 报告页主组件
 │   ├── index.css          # 全局样式和Tailwind指令
 │   └── main.jsx           # 应用入口文件
 ├── tailwind.config.js     # Tailwind CSS配置
@@ -106,10 +113,13 @@ yarn preview
 
 ## 主要功能
 
-- AI 辅助的视觉设计展示
-- 响应式布局，适配各种设备
-- 现代化 UI 组件和交互效果
-- 可视化图表和数据展示
+- 基于React的可视化管理控制台
+- 暗黑模式主题的现代化UI设计
+- 动态导航和视图切换功能
+- AI自动化流程可视化展示
+- 交互式流程图和数据处理示意
+- 响应式布局，适配各种设备尺寸
+- 动画效果和交互体验优化
 
 ## 自定义配置
 
