@@ -260,7 +260,7 @@ function App() {
                                 <div className="space-y-2 text-xs text-slate-300">
                                     <div className="flex items-center gap-2">
                                         <span className="w-2 h-2 bg-slate-500 rounded-full"></span>
-                                        <span><strong>Chain (链):</strong> 火车。按预定轨道 (A->B->C) 跑，出轨即死。</span>
+                                        <span><strong>Chain (链):</strong> 火车。按预定轨道 (A-&gt;B-&gt;C) 跑，出轨即死。</span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <span className="w-2 h-2 bg-n8n rounded-full"></span>
