@@ -29,7 +29,7 @@ const NodeCard = ({ icon: Icon, label, subLabel, type = "default", active = true
             </div>
             <span className="text-xs font-bold text-white whitespace-nowrap">{label}</span>
             {subLabel && <span className="text-[10px] text-slate-400 mt-1">{subLabel}</span>}
-            
+
             <div className="absolute top-1/2 -left-1 w-2 h-2 bg-slate-400 rounded-full"></div>
             <div className="absolute top-1/2 -right-1 w-2 h-2 bg-slate-400 rounded-full"></div>
         </div>
@@ -48,7 +48,7 @@ const SectionHeader = ({ level, title, subTitle }) => (
     </div>
 );
 
-const InfoBox = ({ children, type="info" }) => {
+const InfoBox = ({ children, type = "info" }) => {
     const styles = {
         info: "bg-blue-900/20 border-blue-500/30 text-blue-200",
         tip: "bg-yellow-900/20 border-yellow-500/30 text-yellow-200",
@@ -64,12 +64,12 @@ const InfoBox = ({ children, type="info" }) => {
 const Level1_Visual = () => {
     return (
         <div className="w-full relative py-12 px-4 bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden group">
-            <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
             <div className="relative flex justify-between items-center max-w-3xl mx-auto">
                 <FlowPath />
-                <div className="absolute top-1/2 left-10 w-3 h-3 bg-n8n rounded-full shadow-[0_0_10px_#ff4d4d] -translate-y-1/2 z-0 animate-[moveAcross_3s_linear_infinite]" 
-                     style={{animationName: 'moveAcross'}}>
-                     <style>{`
+                <div className="absolute top-1/2 left-10 w-3 h-3 bg-n8n rounded-full shadow-[0_0_10px_#ff4d4d] -translate-y-1/2 z-0 animate-[moveAcross_3s_linear_infinite]"
+                    style={{ animationName: 'moveAcross' }}>
+                    <style>{`
                         @keyframes moveAcross {
                             0% { left: 5%; opacity: 0; }
                             10% { opacity: 1; }
@@ -174,7 +174,7 @@ const Intro = ({ onStart }) => ( /* ... 粘贴 Intro 的代码 ... */
             n8n AI <span className="text-transparent bg-clip-text bg-gradient-to-r from-n8n to-orange-500">Automation</span>
         </h1>
         <p className="text-xl text-slate-400 max-w-2xl mb-12 leading-relaxed">
-            不再只是连线，而是构建智能体。<br/>
+            不再只是连线，而是构建智能体。<br />
             通过可视化的互动图解，掌握从基础自动化到 AI Agent 的核心逻辑。
         </p>
         <button onClick={onStart} className="group relative px-8 py-4 bg-n8n hover:bg-red-500 text-white rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(255,77,77,0.4)] hover:shadow-[0_0_30px_rgba(255,77,77,0.6)]">
@@ -191,9 +191,8 @@ function ReportView() {
     const scrollToContent = () => contentRef.current?.scrollIntoView({ behavior: 'smooth' });
 
     return (
-<div className="min-h-screen w-full pb-20 bg-slate-950 text-white">
-                <Intro onStart={scrollToContent} />
-
+        <div className="min-h-screen w-full pb-20 bg-slate-950 text-white">
+            <Intro onStart={scrollToContent} />
             <div ref={contentRef} className="px-4 md:px-8 space-y-24 pt-12">
                 <section className="relative">
                     <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-slate-800"></div>
@@ -202,11 +201,11 @@ function ReportView() {
                         <Level1_Visual />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                             <InfoBox type="info">
-                                <h4 className="font-bold mb-1 flex items-center gap-2"><Icons.Zap size={16}/> Trigger 原理</h4>
+                                <h4 className="font-bold mb-1 flex items-center gap-2"><Icons.Zap size={16} /> Trigger 原理</h4>
                                 <p className="text-xs opacity-80">Webhook 就像门铃，有人按（发请求）才会响。Cron 就像闹钟，时间到了自动响。</p>
                             </InfoBox>
                             <InfoBox type="tip">
-                                <h4 className="font-bold mb-1 flex items-center gap-2"><Icons.Merge size={16}/> 关键技巧：Merge Node</h4>
+                                <h4 className="font-bold mb-1 flex items-center gap-2"><Icons.Merge size={16} /> 关键技巧：Merge Node</h4>
                                 <p className="text-xs opacity-80">看到上面流程图中的分支了吗？如果分支后需要汇总数据（例如：不管走哪条路最后都要发 Slack），一定要用 Merge Node。</p>
                             </InfoBox>
                         </div>
@@ -220,7 +219,7 @@ function ReportView() {
                             <div className="absolute inset-0 bg-purple-900/10"></div>
                             <NodeCard icon={Icons.Database} label="Input" type="db" />
                             <div className="w-16 h-0.5 bg-slate-700 relative">
-                                <div className="absolute inset-0 bg-purple-500 animate-dash" style={{width: '100%'}}></div>
+                                <div className="absolute inset-0 bg-purple-500 animate-dash" style={{ width: '100%' }}></div>
                             </div>
                             <div className="relative">
                                 <div className="absolute -inset-4 bg-purple-500/30 blur-xl animate-pulse"></div>

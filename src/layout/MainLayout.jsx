@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Icons } from '../components/Icons';
 import packageJson from '../../package.json';
+import { menuItems } from './menuConfig';
 
 const MainLayout = ({ currentView, onViewChange, children }) => {
   // --- 状态管理 ---
@@ -22,32 +23,7 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const searchInputRef = useRef(null);
 
-  // --- 菜单配置 ---
-  const menuItems = useMemo(() => [
-    { id: 'home', label: '控制台首页', icon: Icons.Layout },
-    { 
-      id: 'report', 
-      label: 'AI 报告', 
-      icon: Icons.FileText,
-      children: [
-        { id: 'n8n-report', label: 'n8n工作流' }
-      ]
-    },
-    { 
-      id: 'tools', 
-      label: 'AI 工具', 
-      icon: Icons.Wrench,
-      children: [
-        { id: 'cat-food-analysis', label: '猫粮成分分析' }
-      ]
-    },
-    { 
-      id: 'settings', 
-      label: '全局设置', 
-      icon: Icons.Settings, 
-      disabled: false 
-    },
-  ], []);
+  // 从menuConfig导入的菜单配置，无需useMemo包装，因为配置是静态的
 
   // 自动展开
   useEffect(() => {

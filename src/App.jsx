@@ -4,6 +4,9 @@ import MainLayout from './layout/MainLayout';
 import HomeView from './views/home/Index';
 import N8nReportView from './views/report/N8nReport';
 import SettingView from './views/settings/Index';
+import DollarHegemonyReportView from './views/report/DollarHegemonyReport';
+
+
 
 function App() {
     const [currentView, setCurrentView] = useState('home');
@@ -18,6 +21,8 @@ function App() {
             // 处理所有子菜单 ID
             case 'n8n-report':
                 return <N8nReportView activeTab={currentView} />;
+            case 'dollar-hegemony-report':
+                return <DollarHegemonyReportView activeTab={currentView} />;
             case 'report': // 保留这个以防万一
                 // 这里你可以把 currentView 传给 ReportView，让它决定显示什么
                 return <N8nReportView activeTab={currentView} />;
