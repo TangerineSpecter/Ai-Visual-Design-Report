@@ -116,7 +116,7 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
     setExpandedMenus(prev => prev.includes(menuId) ? prev.filter(id => id !== menuId) : [...prev, menuId]);
   };
 
-  // --- 4. 渲染菜单项 (防闪烁终极优化版) ---
+// --- 4. 渲染菜单项 (内部滚动版) ---
   const renderMenuItem = (item) => {
     const hasChildren = item.children && item.children.length > 0;
     const isExpanded = !isSidebarCollapsed && expandedMenus.includes(item.id);
@@ -125,7 +125,7 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
 
     return (
       <div key={item.id} className="mb-2 px-3">
-        {/* 一级菜单按钮 */}
+        {/* 一级菜单按钮 (这部分代码没变) */}
         <button
           onClick={() => {
             if (item.disabled) return;
@@ -138,7 +138,6 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
             else onViewChange(item.id);
           }}
           disabled={item.disabled}
-          // 关键点：使用 flex-nowrap 防止换行，overflow-hidden 裁剪内容
           className={`w-full flex items-center flex-nowrap py-3 px-3 rounded-2xl text-sm font-medium transition-all duration-300 relative group overflow-hidden
             ${isActive
               ? 'bg-gradient-to-r from-n8n to-pink-600 text-white shadow-lg shadow-n8n/30'
@@ -152,20 +151,14 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
         >
           {isActive && <div className="absolute inset-0 rounded-2xl bg-white/20 blur-sm animate-pulse"></div>}
 
-          {/* 图标：固定宽度，不随父级收缩而挤压 */}
           <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center relative z-10">
             <item.icon size={20} className={`transition-transform duration-300 ${isActive || isChildActive ? 'scale-110' : 'group-hover:scale-110'}`} />
           </div>
 
-          {/* 文字容器：使用 max-width 进行动画，这是防止闪烁的关键 
-             ml-3 放在这里面，这样收缩时 margin 也会一起消失，不会留下空白
-          */}
           <div className={`overflow-hidden transition-all duration-300 ease-in-out whitespace-nowrap flex items-center
             ${isSidebarCollapsed ? 'max-w-0 opacity-0' : 'max-w-[200px] opacity-100'}
           `}>
             <span className="ml-3 tracking-wide">{item.label}</span>
-
-            {/* 箭头也在这个容器里，一起消失 */}
             {hasChildren && (
               <div className={`ml-auto pl-2 transition-transform duration-300 ${isExpanded ? 'rotate-90 text-white' : 'text-slate-500'}`}>
                 <Icons.ChevronRight size={16} />
@@ -174,32 +167,46 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
           </div>
         </button>
 
-        {/* 二级菜单 */}
+        {/* === 二级菜单 (重点修改区域) === */}
         {!isSidebarCollapsed && hasChildren && (
-          <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? 'max-h-48 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-            <div className="flex flex-col space-y-1 ml-4 border-l border-white/10 pl-3">
-              {item.children.map(child => {
-                const isChildSelected = currentView === child.id;
-                return (
-                  <button
-                    key={child.id}
-                    onClick={() => onViewChange(child.id)}
-                    className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all duration-200 relative overflow-hidden group/child whitespace-nowrap
-                      ${isChildSelected
-                        ? 'text-n8n bg-n8n/10 font-bold shadow-[inset_0_0_10px_rgba(255,77,77,0.1)]'
-                        : 'text-slate-500 hover:text-slate-200 hover:bg-white/5'
-                      }
-                    `}
-                  >
-                    {isChildSelected && (
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-n8n rounded-r-full shadow-[0_0_8px_#ff4d4d]"></div>
-                    )}
-                    <span className={`relative z-10 transition-transform duration-200 ${isChildSelected ? 'translate-x-1' : 'group-hover/child:translate-x-1'}`}>
-                      {child.label}
-                    </span>
-                  </button>
-                );
-              })}
+          // 1. 外层：只负责"展开/收起"的动画，不负责滚动
+          <div 
+            className={`grid transition-[grid-template-rows] duration-300 ease-in-out
+              ${isExpanded ? 'grid-rows-[1fr] mt-2' : 'grid-rows-[0fr] mt-0'}
+            `}
+          >
+            <div className="overflow-hidden"> {/* Grid 动画必需的遮罩 */}
+              
+              {/* 2. 内层：负责限制高度 + 内部滚动 
+                  max-h-56 (约224px) 限制高度，超出则显示滚动条
+                  scrollbar-thin 美化滚动条
+              */}
+              <div className="max-h-56 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent pr-1">
+                <div className="flex flex-col space-y-1 ml-4 border-l border-white/10 pl-3">
+                  {item.children.map(child => {
+                    const isChildSelected = currentView === child.id;
+                    return (
+                      <button
+                        key={child.id}
+                        onClick={() => onViewChange(child.id)}
+                        className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all duration-200 relative overflow-hidden group/child whitespace-nowrap flex-shrink-0
+                          ${isChildSelected
+                            ? 'text-n8n bg-n8n/10 font-bold shadow-[inset_0_0_10px_rgba(255,77,77,0.1)]'
+                            : 'text-slate-500 hover:text-slate-200 hover:bg-white/5'
+                          }
+                        `}
+                      >
+                        {isChildSelected && (
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-n8n rounded-r-full shadow-[0_0_8px_#ff4d4d]"></div>
+                        )}
+                        <span className={`relative z-10 transition-transform duration-200 ${isChildSelected ? 'translate-x-1' : 'group-hover/child:translate-x-1'}`}>
+                          {child.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         )}

@@ -7,6 +7,13 @@ const DollarHegemonyReportView = () => import('../views/report/DollarHegemonyRep
 const CatFoodAnalysisView = () => import('../views/tools/CatFoodAnalysis.jsx');
 const PosterGeneratorView = () => import('../views/tools/PosterGenerator.jsx');
 const SettingView = () => import('../views/settings/Index.jsx');
+const CatFoodReportView = () => import('../views/report/CatFoodReport.jsx');
+const LangChain_1_0_ReportView = () => import('../views/report/LangChain_1.0_Report.jsx');
+const EconomicMachineReportView = () => import('../views/report/EconomicMachineReport.jsx');
+const IslandReportView = () => import('../views/report/IslandKnowledgeReport.jsx');
+const MacdKnowledgeView = () => import('../views/report/MacdKnowledge.jsx');
+const TechnicalAnalysisReportView = () => import('../views/report/TechnicalIndicatorsMisconception.jsx');
+
 
 // 统一配置 - 只需要在这里配置一次！
 export const unifiedConfig = {
@@ -26,16 +33,52 @@ export const unifiedConfig = {
       children: [
         {
           id: 'n8n-report',
-          label: 'n8n工作流',
+          label: 'n8n 工作流',
           component: N8nReportView,
           componentType: 'report'
         },
         {
           id: 'dollar-hegemony-report',
-          label: '美元霸权报告',
+          label: '美元霸权解析',
           component: DollarHegemonyReportView,
           componentType: 'report'
-        }
+        },
+        {
+          id: 'cat-food-report',
+          label: '猫粮科学指南',
+          component: CatFoodReportView,
+          componentType: 'report'
+        },
+        {
+          id: 'langchain-1.0-report',
+          label: 'LangChain 1.0 解析',
+          component: LangChain_1_0_ReportView,
+          componentType: 'report'
+        },
+        {
+          id: 'economic-machine-report',
+          label: '经济机器解析',
+          component: EconomicMachineReportView,
+          componentType: 'report'
+        },
+        {
+          id: 'island-report',
+          label: '小岛经济学',
+          component: IslandReportView,
+          componentType: 'report'
+        },
+        {
+          id: 'macd-knowledge',
+          label: 'MACD 知识',
+          component: MacdKnowledgeView,
+          componentType: 'report'
+        },
+        {
+          id: 'technical-analysis-report',
+          label: '技术指标误区',
+          component: TechnicalAnalysisReportView,
+          componentType: 'report'
+        },
       ]
     },
     {
@@ -110,7 +153,7 @@ export const getBreadcrumbs = (items, id) => {
     }
     return null;
   };
-  
+
   const result = findPath(items, id, []);
   return result || [];
 };
