@@ -21,7 +21,8 @@ export const menuItems = [
     label: 'AI 工具',
     icon: Icons.Wrench,
     children: [
-      { id: 'cat-food-analysis', label: '猫粮成分分析' }
+      { id: 'cat-food-analysis', label: '猫粮成分分析' },
+      { id: 'poster-generator', label: '海报生成器' }
     ]
   },
   {

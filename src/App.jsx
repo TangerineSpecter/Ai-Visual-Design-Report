@@ -6,6 +6,7 @@ import N8nReportView from './views/report/N8nReport';
 import SettingView from './views/settings/Index';
 import DollarHegemonyReportView from './views/report/DollarHegemonyReport';
 import CatFoodAnalysisView from './views/tools/CatFoodAnalysis';
+import PosterGeneratorView from './views/tools/PosterGenerator';
 
 
 
@@ -30,6 +31,8 @@ function App() {
             // 处理所有子菜单 ID
             case 'cat-food-analysis':
                 return <CatFoodAnalysisView activeTab={currentView} />;
+            case 'poster-generator':
+                return <PosterGeneratorView activeTab={currentView} />;
 
             default:
                 return <HomeView onNavigate={setCurrentView} />;
