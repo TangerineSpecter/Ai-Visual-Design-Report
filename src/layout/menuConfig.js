@@ -13,6 +13,8 @@ const EconomicMachineReportView = () => import('../views/report/EconomicMachineR
 const IslandReportView = () => import('../views/report/IslandKnowledgeReport.jsx');
 const MacdKnowledgeView = () => import('../views/report/MacdKnowledge.jsx');
 const TechnicalAnalysisReportView = () => import('../views/report/TechnicalIndicatorsMisconception.jsx');
+const FirstMoneyReportView = () => import('../views/report/FirstMoneyReport.jsx');
+const AirportEnglishReportView = () => import('../views/report/AirportEnglishReport.jsx');
 
 
 // 统一配置 - 只需要在这里配置一次！
@@ -77,6 +79,18 @@ export const unifiedConfig = {
           id: 'technical-analysis-report',
           label: '技术指标误区',
           component: TechnicalAnalysisReportView,
+          componentType: 'report'
+        },
+        {
+          id: 'first-money-report',
+          label: '存下第一笔 10 万',
+          component: FirstMoneyReportView,
+          componentType: 'report'
+        },
+        {
+          id: 'airport-english-report',
+          label: '机场英语教学',
+          component: AirportEnglishReportView,
           componentType: 'report'
         },
       ]
