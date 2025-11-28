@@ -18,7 +18,7 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
 
   const [expandedMenus, setExpandedMenus] = useState([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  
+
   // 搜索相关
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -29,7 +29,7 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
 
   // 自动展开
   useEffect(() => {
-    const parent = menuItems.find(item => 
+    const parent = menuItems.find(item =>
       item.children && item.children.some(child => child.id === currentView)
     );
     if (parent) {
@@ -54,12 +54,12 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
     return items;
   }, [menuItems]);
 
-  const searchResults = searchQuery.trim() === "" 
-    ? [] 
-    : searchableItems.filter(item => 
-        item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (item.parentLabel && item.parentLabel.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
+  const searchResults = searchQuery.trim() === ""
+    ? []
+    : searchableItems.filter(item =>
+      item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (item.parentLabel && item.parentLabel.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
 
   const currentDisplayList = searchQuery ? searchResults : searchableItems.slice(0, 5);
 
@@ -140,37 +140,37 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
           disabled={item.disabled}
           // 关键点：使用 flex-nowrap 防止换行，overflow-hidden 裁剪内容
           className={`w-full flex items-center flex-nowrap py-3 px-3 rounded-2xl text-sm font-medium transition-all duration-300 relative group overflow-hidden
-            ${isActive 
-              ? 'bg-gradient-to-r from-n8n to-pink-600 text-white shadow-lg shadow-n8n/30' 
-              : item.disabled 
+            ${isActive
+              ? 'bg-gradient-to-r from-n8n to-pink-600 text-white shadow-lg shadow-n8n/30'
+              : item.disabled
                 ? 'opacity-40 cursor-not-allowed text-slate-500'
-                : isChildActive 
-                    ? 'text-white bg-white/5' 
-                    : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                : isChildActive
+                  ? 'text-white bg-white/5'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
             }
           `}
         >
           {isActive && <div className="absolute inset-0 rounded-2xl bg-white/20 blur-sm animate-pulse"></div>}
-          
+
           {/* 图标：固定宽度，不随父级收缩而挤压 */}
           <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center relative z-10">
             <item.icon size={20} className={`transition-transform duration-300 ${isActive || isChildActive ? 'scale-110' : 'group-hover:scale-110'}`} />
           </div>
-          
+
           {/* 文字容器：使用 max-width 进行动画，这是防止闪烁的关键 
              ml-3 放在这里面，这样收缩时 margin 也会一起消失，不会留下空白
           */}
           <div className={`overflow-hidden transition-all duration-300 ease-in-out whitespace-nowrap flex items-center
             ${isSidebarCollapsed ? 'max-w-0 opacity-0' : 'max-w-[200px] opacity-100'}
           `}>
-             <span className="ml-3 tracking-wide">{item.label}</span>
-             
-             {/* 箭头也在这个容器里，一起消失 */}
-             {hasChildren && (
-                <div className={`ml-auto pl-2 transition-transform duration-300 ${isExpanded ? 'rotate-90 text-white' : 'text-slate-500'}`}>
-                  <Icons.ChevronRight size={16} />
-                </div>
-             )}
+            <span className="ml-3 tracking-wide">{item.label}</span>
+
+            {/* 箭头也在这个容器里，一起消失 */}
+            {hasChildren && (
+              <div className={`ml-auto pl-2 transition-transform duration-300 ${isExpanded ? 'rotate-90 text-white' : 'text-slate-500'}`}>
+                <Icons.ChevronRight size={16} />
+              </div>
+            )}
           </div>
         </button>
 
@@ -185,8 +185,8 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
                     key={child.id}
                     onClick={() => onViewChange(child.id)}
                     className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all duration-200 relative overflow-hidden group/child whitespace-nowrap
-                      ${isChildSelected 
-                        ? 'text-n8n bg-n8n/10 font-bold shadow-[inset_0_0_10px_rgba(255,77,77,0.1)]' 
+                      ${isChildSelected
+                        ? 'text-n8n bg-n8n/10 font-bold shadow-[inset_0_0_10px_rgba(255,77,77,0.1)]'
                         : 'text-slate-500 hover:text-slate-200 hover:bg-white/5'
                       }
                     `}
@@ -209,9 +209,9 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
 
   return (
     <div className="flex h-screen w-full bg-[#050508] text-slate-200 overflow-hidden font-sans selection:bg-n8n/30 selection:text-n8n-light">
-      
+
       {/* Sidebar */}
-      <aside 
+      <aside
         className={`flex flex-col transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) relative z-20 flex-shrink-0 border-r border-white/5 bg-[#050508]
           ${isSidebarCollapsed ? 'w-20' : 'w-72'}
         `}
@@ -223,25 +223,25 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               <Icons.Bot size={22} className="text-white relative z-10" />
             </div>
-            
+
             {/* 标题文字：防闪烁处理 */}
             <div className={`flex flex-col ml-3 transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap
                ${isSidebarCollapsed ? 'max-w-0 opacity-0' : 'max-w-[200px] opacity-100'}
             `}>
-                <span className="font-bold text-xl tracking-tight text-white leading-none">AI Engine</span>
-                <span className="text-[10px] text-slate-500 uppercase tracking-widest mt-1 font-bold">Design Report</span>
+              <span className="font-bold text-xl tracking-tight text-white leading-none">AI Engine</span>
+              <span className="text-[10px] text-slate-500 uppercase tracking-widest mt-1 font-bold">Design Report</span>
             </div>
           </div>
         </div>
 
         {/* Toggle Button */}
         <div className={`px-4 mb-2 flex ${isSidebarCollapsed ? 'justify-center' : 'justify-end'}`}>
-           <button 
-             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-             className="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-white/10 transition-all"
-           >
-             <Icons.Layout size={18} className={isSidebarCollapsed ? "" : "rotate-180"} />
-           </button>
+          <button
+            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+            className="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-white/10 transition-all"
+          >
+            <Icons.Layout size={18} className={isSidebarCollapsed ? "" : "rotate-180"} />
+          </button>
         </div>
 
         <nav className="flex-1 overflow-y-auto custom-scrollbar pt-2 px-2 pb-10">
@@ -256,41 +256,91 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
             hover:border-n8n/30 hover:bg-[#15151a]
             ${isSidebarCollapsed ? 'justify-center p-2' : ''}`}
           >
-             <div className="relative flex-shrink-0 w-9 h-9 rounded-full bg-gradient-to-tr from-slate-700 to-slate-600 flex items-center justify-center text-white text-xs shadow-inner">
-                <Icons.UserCheck size={16} />
-                <span className="absolute bottom-0 right-0 block w-2.5 h-2.5 bg-green-500 ring-2 ring-[#0f0f13] rounded-full animate-pulse"></span>
-             </div>
-             
-             {/* 文字容器：防闪烁处理 */}
-             <div className={`flex flex-col transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap
+            <div className="relative flex-shrink-0 w-9 h-9 rounded-full bg-gradient-to-tr from-slate-700 to-slate-600 flex items-center justify-center text-white text-xs shadow-inner">
+              <Icons.UserCheck size={16} />
+              <span className="absolute bottom-0 right-0 block w-2.5 h-2.5 bg-green-500 ring-2 ring-[#0f0f13] rounded-full animate-pulse"></span>
+            </div>
+
+            {/* 文字容器：防闪烁处理 */}
+            <div className={`flex flex-col transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap
                ${isSidebarCollapsed ? 'max-w-0 opacity-0 ml-0' : 'max-w-[150px] opacity-100 ml-3'}
              `}>
-                 <div className="text-sm font-bold text-slate-200 truncate">丢失的猫咪</div>
-                 <div className="flex justify-between items-center mt-0.5 gap-2">
-                    <span className="text-[10px] text-slate-500">Pro Account</span>
-                    {/* 2. 版本号 (橙色高亮) */}
-                    <span className="text-[10px] text-orange-500 font-bold font-mono bg-orange-500/10 px-1.5 rounded border border-orange-500/20">v{packageJson.version}</span>
-                 </div>
-             </div>
+              <div className="text-sm font-bold text-slate-200 truncate">丢失的猫咪</div>
+              <div className="flex justify-between items-center mt-0.5 gap-2">
+                <span className="text-[10px] text-slate-500">Pro Account</span>
+                {/* 2. 版本号 (橙色高亮) */}
+                <span className="text-[10px] text-orange-500 font-bold font-mono bg-orange-500/10 px-1.5 rounded border border-orange-500/20">v{packageJson.version}</span>
+              </div>
+            </div>
           </div>
         </div>
       </aside>
 
       {/* Main Content (保持不变) */}
       <main className="flex-1 relative h-full py-3 pr-3 overflow-hidden">
+        {/* --- 顶部工具栏 (自动收缩版) --- */}
+        {/* 容器定位到右侧边缘 (right-0)，使用 group 监听悬停 */}
+        <div className="absolute top-8 right-0 z-50 flex justify-end overflow-visible group h-12">
+
+          {/* 实际的滑动条 */}
+          <div className={`
+      flex items-center gap-2 p-1.5 pl-3 pr-2
+      bg-white/80 dark:bg-[#0c0c0e]/80 backdrop-blur-md 
+      /* 左边圆角，像一个伸出来的标签 */
+      rounded-l-2xl border-l border-y border-slate-200/50 dark:border-white/10 border-r-0
+      shadow-lg 
+      
+      /* 核心动画逻辑：
+         1. translate-x-[calc(100%-44px)]: 默认把身子藏到屏幕右侧外面，只留 44px (大约一个图标的宽度)
+         2. hover:translate-x-0: 鼠标放上去时，完全展示
+         3. transition-transform: 丝滑过渡
+      */
+      transform translate-x-[calc(100%-44px)] hover:translate-x-[-12px] 
+      transition-transform duration-300 ease-out
+      pointer-events-auto
+    `}>
+
+            {/* 1. 搜索按钮 (充当把手 Handle) */}
+            {/* 这个按钮始终可见，因为它是 flex 的第一个元素 */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-n8n transition-all flex-shrink-0"
+              title="Search"
+            >
+              <Icons.Search size={18} />
+            </button>
+
+            {/* 2. 分割线 (仅在展开时有用) */}
+            <div className="w-px h-3 bg-slate-300 dark:bg-slate-700 mx-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100"></div>
+
+            {/* 3. 其他按钮 (默认被藏在屏幕外) */}
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-yellow-500 transition-all flex-shrink-0"
+              title="Toggle Theme"
+            >
+              {isDarkMode ? <Icons.Sun size={18} /> : <Icons.Moon size={18} />}
+            </button>
+
+            <button
+              className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-red-500 transition-all relative flex-shrink-0"
+              title="Notifications"
+            >
+              <Icons.Bell size={18} />
+              <span className="absolute top-2 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full animate-ping"></span>
+              <span className="absolute top-2 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+            </button>
+
+            {/* 一个右侧占位，防止内容紧贴着屏幕边缘太难看 */}
+            <div className="w-1"></div>
+          </div>
+        </div>
         <div className="h-full w-full rounded-l-[2.5rem] rounded-r-2xl bg-slate-50 dark:bg-[#0c0c0e] shadow-2xl overflow-hidden relative flex flex-col transition-colors duration-500 ease-in-out border border-white/50 dark:border-white/5 group/main z-0">
-           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-n8n/20 rounded-full blur-[100px] pointer-events-none opacity-0 dark:opacity-50 transition-opacity duration-1000 z-0"></div>
-           <div className="absolute top-6 right-6 z-50 flex items-center gap-3 pointer-events-auto">
-               <div className="flex items-center gap-2 p-1.5 bg-white/70 dark:bg-[#0c0c0e]/70 backdrop-blur-md rounded-full border border-slate-200/50 dark:border-white/10 shadow-lg hover:bg-white dark:hover:bg-[#15151a] transition-all duration-300">
-                  <button onClick={() => setIsSearchOpen(true)} className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-n8n transition-all"><Icons.Search size={16} /></button>
-                  <div className="w-px h-3 bg-slate-300 dark:bg-slate-700"></div>
-                  <button onClick={() => setIsDarkMode(!isDarkMode)} className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-yellow-500 transition-all">{isDarkMode ? <Icons.Sun size={16} /> : <Icons.Moon size={16} />}</button>
-                  <button className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-red-500 transition-all relative"><Icons.Bell size={16} /><span className="absolute top-2 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full"></span></button>
-               </div>
-           </div>
-           <div className="flex-1 w-full h-full overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700 scrollbar-track-transparent relative z-10 rounded-l-[2.5rem] rounded-r-2xl">
-              {children}
-           </div>
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-n8n/20 rounded-full blur-[100px] pointer-events-none opacity-0 dark:opacity-50 transition-opacity duration-1000 z-0"></div>
+
+          <div className="flex-1 w-full h-full overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700 scrollbar-track-transparent relative z-10 rounded-l-[2.5rem] rounded-r-2xl">
+            {children}
+          </div>
         </div>
       </main>
 
@@ -302,11 +352,11 @@ const MainLayout = ({ currentView, onViewChange, children }) => {
               <Icons.Search size={22} className="text-n8n" /><input ref={searchInputRef} type="text" placeholder="Search..." className="flex-1 ml-4 bg-transparent outline-none text-slate-800 dark:text-white" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
             </div>
             <div className="max-h-[50vh] overflow-y-auto custom-scrollbar p-2">
-               {currentDisplayList.map((item, index) => (
-                    <button key={item.id} onClick={() => handleSearchResultClick(item.id)} className={`w-full px-4 py-3 flex items-center gap-4 rounded-xl transition-all ${index === selectedIndex ? 'bg-n8n/10' : 'hover:bg-slate-50 dark:hover:bg-white/5'}`}>
-                      <div className="text-slate-500"><item.icon size={18} /></div><div className="text-left flex-1"><div className="text-sm font-bold text-slate-700 dark:text-slate-200">{item.label}</div></div>
-                    </button>
-               ))}
+              {currentDisplayList.map((item, index) => (
+                <button key={item.id} onClick={() => handleSearchResultClick(item.id)} className={`w-full px-4 py-3 flex items-center gap-4 rounded-xl transition-all ${index === selectedIndex ? 'bg-n8n/10' : 'hover:bg-slate-50 dark:hover:bg-white/5'}`}>
+                  <div className="text-slate-500"><item.icon size={18} /></div><div className="text-left flex-1"><div className="text-sm font-bold text-slate-700 dark:text-slate-200">{item.label}</div></div>
+                </button>
+              ))}
             </div>
           </div>
         </div>
