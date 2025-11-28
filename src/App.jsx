@@ -5,6 +5,7 @@ import HomeView from './views/home/Index';
 import N8nReportView from './views/report/N8nReport';
 import SettingView from './views/settings/Index';
 import DollarHegemonyReportView from './views/report/DollarHegemonyReport';
+import CatFoodAnalysisView from './views/tools/CatFoodAnalysis';
 
 
 
@@ -28,7 +29,7 @@ function App() {
                 return <N8nReportView activeTab={currentView} />;
             // 处理所有子菜单 ID
             case 'cat-food-analysis':
-                return <N8nReportView activeTab={currentView} />;
+                return <CatFoodAnalysisView activeTab={currentView} />;
 
             default:
                 return <HomeView onNavigate={setCurrentView} />;
