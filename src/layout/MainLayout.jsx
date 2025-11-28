@@ -2,7 +2,9 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Icons } from '../components/Icons';
 import packageJson from '../../package.json';
-import { menuItems } from './menuConfig';
+import { unifiedConfig } from './menuConfig';
+
+const menuItems = unifiedConfig.menuItems;
 
 const MainLayout = ({ currentView, onViewChange, children }) => {
   // --- 状态管理 ---

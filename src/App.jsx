@@ -1,42 +1,52 @@
 // src/App.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MainLayout from './layout/MainLayout';
-import HomeView from './views/home/Index';
-import N8nReportView from './views/report/N8nReport';
-import SettingView from './views/settings/Index';
-import DollarHegemonyReportView from './views/report/DollarHegemonyReport';
-import CatFoodAnalysisView from './views/tools/CatFoodAnalysis';
-import PosterGeneratorView from './views/tools/PosterGenerator';
-
-
+import { unifiedConfig, findMenuItem } from './layout/menuConfig';
 
 function App() {
     const [currentView, setCurrentView] = useState('home');
+    const [lazyComponent, setLazyComponent] = useState(null);
+
+    useEffect(() => {
+        const loadComponent = async () => {
+            const pageConfig = findMenuItem(unifiedConfig.menuItems, currentView);
+            if (pageConfig && pageConfig.component) {
+                try {
+                    const module = await pageConfig.component();
+                    setLazyComponent(() => module.default || module);
+                } catch (error) {
+                    console.error('Failed to load component:', error);
+                    // 回退到首页
+                    const homeConfig = findMenuItem(unifiedConfig.menuItems, 'home');
+                    if (homeConfig && homeConfig.component) {
+                        const homeModule = await homeConfig.component();
+                        setLazyComponent(() => homeModule.default || homeModule);
+                    }
+                }
+            } else {
+                // 默认回退到首页
+                const homeConfig = findMenuItem(unifiedConfig.menuItems, 'home');
+                if (homeConfig && homeConfig.component) {
+                    const homeModule = await homeConfig.component();
+                    setLazyComponent(() => homeModule.default || homeModule);
+                }
+            }
+        };
+
+        loadComponent();
+    }, [currentView]);
 
     const renderContent = () => {
-        switch (currentView) {
-            case 'home':
-                return <HomeView onNavigate={setCurrentView} />;
-            case 'settings':
-                return <SettingView onNavigate={setCurrentView} />;
-
-            // 处理所有子菜单 ID
-            case 'n8n-report':
-                return <N8nReportView activeTab={currentView} />;
-            case 'dollar-hegemony-report':
-                return <DollarHegemonyReportView activeTab={currentView} />;
-            case 'report': // 保留这个以防万一
-                // 这里你可以把 currentView 传给 ReportView，让它决定显示什么
-                return <N8nReportView activeTab={currentView} />;
-            // 处理所有子菜单 ID
-            case 'cat-food-analysis':
-                return <CatFoodAnalysisView activeTab={currentView} />;
-            case 'poster-generator':
-                return <PosterGeneratorView activeTab={currentView} />;
-
-            default:
-                return <HomeView onNavigate={setCurrentView} />;
+        if (lazyComponent) {
+            const Component = lazyComponent;
+            return (
+                <div className="h-full w-full">
+                    <Component />
+                </div>
+            );
         }
+        
+        return <div className="p-8 text-center text-slate-500">加载中...</div>;
     };
 
     return (
