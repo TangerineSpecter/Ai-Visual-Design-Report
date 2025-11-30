@@ -18,6 +18,7 @@ const AirportEnglishReportView = () => import('../views/report/AirportEnglishRep
 const TrendTradeAnalysisReportView = () => import('../views/report/TrendTradeAnalysisReport.jsx');
 const ImageCompressionView = () => import('../views/tools/ImageCompression.jsx');
 const CoreIndicatorsReportView = () => import('../views/report/CoreIndicatorsReport.jsx');
+const PhotoStitchingView = () => import('../views/tools/PhotoStitching.jsx');
 
 
 
@@ -132,6 +133,12 @@ export const unifiedConfig = {
           id: 'image-compression',
           label: '图片压缩',
           component: ImageCompressionView,
+          componentType: 'tools'
+        },
+        {
+          id: 'photo-stitching',
+          label: '照片拼接',
+          component: PhotoStitchingView,
           componentType: 'tools'
         }
       ]
