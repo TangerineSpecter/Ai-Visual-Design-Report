@@ -16,6 +16,8 @@ const TechnicalAnalysisReportView = () => import('../views/report/TechnicalIndic
 const FirstMoneyReportView = () => import('../views/report/FirstMoneyReport.jsx');
 const AirportEnglishReportView = () => import('../views/report/AirportEnglishReport.jsx');
 const TrendTradeAnalysisReportView = () => import('../views/report/TrendTradeAnalysisReport.jsx');
+const ImageCompressionView = () => import('../views/tools/ImageCompression.jsx');
+const CoreIndicatorsReportView = () => import('../views/report/CoreIndicatorsReport.jsx');
 
 
 
@@ -101,6 +103,12 @@ export const unifiedConfig = {
           component: TrendTradeAnalysisReportView,
           componentType: 'report'
         },
+        {
+          id: 'core-indicators-report',
+          label: '美股核心指标',
+          component: CoreIndicatorsReportView,
+          componentType: 'report'
+        },
       ]
     },
     {
@@ -118,6 +126,12 @@ export const unifiedConfig = {
           id: 'poster-generator',
           label: '海报生成器',
           component: PosterGeneratorView,
+          componentType: 'tools'
+        },
+        {
+          id: 'image-compression',
+          label: '图片压缩',
+          component: ImageCompressionView,
           componentType: 'tools'
         }
       ]
