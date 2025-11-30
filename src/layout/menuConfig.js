@@ -15,6 +15,8 @@ const MacdKnowledgeView = () => import('../views/report/MacdKnowledge.jsx');
 const TechnicalAnalysisReportView = () => import('../views/report/TechnicalIndicatorsMisconception.jsx');
 const FirstMoneyReportView = () => import('../views/report/FirstMoneyReport.jsx');
 const AirportEnglishReportView = () => import('../views/report/AirportEnglishReport.jsx');
+const TrendTradeAnalysisReportView = () => import('../views/report/TrendTradeAnalysisReport.jsx');
+
 
 
 // 统一配置 - 只需要在这里配置一次！
@@ -91,6 +93,12 @@ export const unifiedConfig = {
           id: 'airport-english-report',
           label: '机场英语教学',
           component: AirportEnglishReportView,
+          componentType: 'report'
+        },
+        {
+          id: 'trend-trade-analysis-report',
+          label: '趋势交易分析',
+          component: TrendTradeAnalysisReportView,
           componentType: 'report'
         },
       ]
